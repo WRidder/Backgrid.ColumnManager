@@ -1,0 +1,1 @@
+# Backgrid.ColumnManager
