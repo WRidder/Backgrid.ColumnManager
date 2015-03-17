@@ -1,0 +1,5 @@
+node_modules
+.idea
+.grunt
+_SpecRunner.html
+npm-debug.log
