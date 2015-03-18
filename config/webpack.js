@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-var webpack = require('webpack');
+var webpack = require("webpack");
 /**
  * Get configuration for Webpack
  *
@@ -13,19 +13,20 @@ var webpack = require('webpack');
  */
 module.exports = function(release) {
   return {
-    entry: './src/Backbone.ColumnManager.js',
+    entry: "./src/Backgrid.ColumnManager.js",
 
     output: {
-      filename: (release) ? 'lib/Backbone.ColumnManager.min.js' : 'lib/Backbone.ColumnManager.js',
+      filename: (release) ? "lib/Backgrid.ColumnManager.min.js" : "lib/Backgrid.ColumnManager.js",
 
       // Library settings
-      library: "Backbone.ColumnManager",
+      library: "Backgrid.Extension.ColumnManager",
       libraryTarget: "umd"
     },
 		externals: {
 			// require("backbone") is external and available on the global var Backbone
 			"backbone": "Backbone",
-			"underscore": "_"
+			"underscore": "_",
+			"backgrid": "Backgrid"
 		},
 
     stats: {
@@ -34,7 +35,7 @@ module.exports = function(release) {
     },
 
     plugins: release ? [
-      new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
+      new webpack.DefinePlugin({"process.env.NODE_ENV": "production"}),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({ sourceMap: false }),
       new webpack.optimize.OccurenceOrderPlugin(),
@@ -42,8 +43,8 @@ module.exports = function(release) {
     ] : [],
 
     resolve: {
-      extensions: ['','.js'],
-      modulesDirectories: ['node_modules']
+      extensions: ["",".js"],
+      modulesDirectories: ["node_modules"]
     }
   };
 };

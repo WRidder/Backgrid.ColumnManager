@@ -26,8 +26,12 @@ gulp.task("lint", function() {
 		.pipe(eslint.failOnError());
 });
 
+var RELEASE = false;
 gulp.task("bundle-release", function(cb) {
-
+	RELEASE = true;
+	gulp.start("bundle");
+	RELEASE = false;
+	cb();
 });
 
 // Bundle
@@ -61,7 +65,7 @@ gulp.task("build-clean", function() {
 
 // Build the app from source code
 gulp.task("build", function(cb) {
-	runSequence("build-clean", "lint", "bundle", "grunt-test", "move-library", cb);
+	runSequence("build-clean", "lint", "bundle", "grunt-test", "move-library", "bundle-release", cb);
 });
 
 // Watcher
