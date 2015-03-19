@@ -65,7 +65,7 @@ gulp.task("build-clean", function() {
 
 // Build the app from source code
 gulp.task("build", function(cb) {
-	runSequence("build-clean", "lint", "bundle", "grunt-test", "move-library", "bundle-release", cb);
+	runSequence("build-clean", "lint", "bundle", "grunt-test", "move-library", "bundle-release", "docs", cb);
 });
 
 // Watcher
@@ -73,4 +73,12 @@ gulp.task("watch", function () {
 	watch(["src/**", "test/**"], function() {
 		gulp.start("build");
 	});
+});
+
+// Documentation
+var yuidoc = require("gulp-yuidoc");
+gulp.task("docs", function() {
+	return gulp.src("./src/*.js")
+		.pipe(yuidoc())
+		.pipe(gulp.dest("./docs"));
 });
