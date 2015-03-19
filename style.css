@@ -47,6 +47,11 @@ div.columnmanager-dropdown-container.open {
     list-style-type:none;
     padding: 5px 0px 0px 20px;
     border-bottom: solid 1px lightgray;
+    cursor: pointer;
+}
+
+.columnmanager-dropdown-container > li:hover {
+    background-color: #f0f0f0;
 }
 
 .columnmanager-dropdown-container > li:last-child {
