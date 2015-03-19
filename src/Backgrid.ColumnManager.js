@@ -2,6 +2,7 @@
 
 // Dependencies
 var _ = require("underscore");
+var Backbone = require("backbone");
 var Backgrid = require("backgrid");
 
 /**
@@ -36,7 +37,7 @@ Backgrid.Extension.ColumnManager = function(columns, options){
 	}
 	else {
 		// Issue warning
-		console.warn("Backgrid.ColumnManager: columns is not an instance of Backgrid.Columns");
+		console.error("Backgrid.ColumnManager: options.columns is not an instance of Backgrid.Columns");
 	}
 };
 
@@ -95,12 +96,241 @@ Backgrid.Extension.ColumnManager.prototype.showColumn = function(col) {
 };
 
 /**
+ * Toggles a columns' visibility
+ * @param {string|number|Backgrid.Column} col
+ */
+Backgrid.Extension.ColumnManager.prototype.toggleColumnVisibility = function(col) {
+	// If column is a valid backgrid column, set the renderable property to true
+	var column = this.getColumn(col);
+	if (column) {
+		if (column.get("renderable")) {
+			this.hideColumn(column);
+		}
+		else {
+			this.showColumn(column);
+		}
+	}
+};
+
+/**
+ * Returns the managed column collection
+ * @return {Backgrid.Columns}
+ */
+Backgrid.Extension.ColumnManager.prototype.getColumnCollection = function() {
+	return this.columns;
+};
+
+/*
+	Column manager visibility ui control
+ */
+
+var DropDownItemView = Backbone.View.extend({
+	className: "columnmanager-dropdown-item",
+	initialize: function(opts) {
+		this.columnManager = opts.columnManager;
+		this.column = opts.column;
+
+		_.bindAll(this, "render", "toggleVisibility");
+		this.column.on("change:renderable", this.render, this);
+		this.el.addEventListener("click", this.toggleVisibility, true);
+	},
+	render: function() {
+		this.$el.empty();
+		var col = this.column;
+		this.$el.append("<div><span>" + col.get("name") + "</span><span>" + ((col.get("renderable")) ? " Y" : " N") + "</span></div>");
+		return this;
+	},
+	toggleVisibility: function(e) {
+		if (e) {
+			this.stopPropagation(e);
+		}
+		this.columnManager.toggleColumnVisibility(this.column);
+	},
+	stopPropagation: function(e){
+		e.stopPropagation();
+		e.stopImmediatePropagation();
+		e.preventDefault();
+	}
+});
+
+var DropDownView = Backbone.View.extend({
+	className: "columnmanager-dropdown-container",
+	initialize: function(opts) {
+		this.columnManager = opts.columnManager;
+
+		this.on("dropdown:opened", this.open, this);
+		this.on("dropdown:closed", this.close, this);
+		this.columnManager.columns.on("add remove", this.render, this);
+	},
+	render: function() {
+		var view = this;
+		view.$el.empty();
+
+		// List all columns
+		this.columnManager.columns.each(function(col) {
+			view.$el.append(new DropDownItemView({
+				column: col,
+				columnManager: view.columnManager
+			}).render().el);
+		});
+	},
+	open: function(){
+		this.$el.addClass("open");
+	},
+
+	close: function(){
+		this.$el.removeClass("open");
+	}
+});
+
+/**
  * UI control which manages visibility of columns.
+ *
+ * Inspired by: https://github.com/kjantzer/backbonejs-dropdown-view
  *
  * @param {Object} options
  * @class Backgrid.Extension.ColumnManagerControl
  */
-Backgrid.Extension.ColumnManagerControl = function(options) {
-	// Save options
-	this.options = options;
-};
+Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
+	tagName: "div",
+	className: "columnmanager-visibilitycontrol",
+	defaultEvents: {
+		"click": "stopPropagation"
+	},
+	defaultOpts: {
+		width: 200,
+		closeOnEsc: true,
+		openOnInit: false,
+		columnManager: null,
+		view: null
+	},
+	/**
+	 * @param {Object} opts
+	 * @param {Backgrid.Extension.ColumnManager} opts.columnManager ColumnManager instance
+	 */
+	initialize: function(opts) {
+		this.options = _.extend({}, this.defaultOpts, opts);
+		this.events = _.extend({}, this.defaultEvents, this.events || {});
+		this.columnManager = opts.columnManager;
+
+		// Option checking
+		if (!this.columnManager instanceof Backgrid.Extension.ColumnManager) {
+			console.error("Backgrid.ColumnManager: options.columns is not an instance of Backgrid.Columns");
+		}
+
+		// Bind scope to events
+		_.bindAll(this, "deferClose", "stopDeferClose", "closeOnEsc", "toggle", "render");
+
+		// UI events
+		document.body.addEventListener("click", this.deferClose, true);
+		this.el.addEventListener("click", this.stopDeferClose, true);
+		if (this.options.closeOnEsc) {
+			document.body.addEventListener("keyup", this.closeOnEsc, false);
+		}
+		this.el.addEventListener("click", this.toggle, false);
+
+		// Create elements
+		this.setup();
+
+		// when the dropdown is opened, render the view
+		//this.on("dropdown:opened", this.render, this);
+
+		// listen for the view telling us to close
+		this.view.on("dropdown:close", this.close, this);
+		this.view.on("dropdown:open", this.open, this);
+	},
+
+	delayStart: function(){
+		clearTimeout(this.closeTimeout);
+		this.delayTimeout = setTimeout(this.open.bind(this), this.options.delay);
+	},
+
+	delayEnd: function(){
+		clearTimeout(this.delayTimeout);
+		this.closeTimeout = setTimeout(this.close.bind(this), 300);
+	},
+
+	setup: function(){
+		this.$el.width(this.options.width + "px");
+		this.view = (this.options.view instanceof Backbone.View) ? this.options.view : new DropDownView({
+			columnManager: this.columnManager
+		});
+	},
+
+	render: function(){
+		this.$el.empty();
+
+		// Render button
+		this.$el.append("<button>DD</button>");
+
+		// Render inner view
+		this.view.render(); // tell the inner view to render itself
+		this.$el.append(this.view.el);
+		return this;
+	},
+
+	stopPropagation: function(e){
+		e.stopPropagation();
+		e.stopImmediatePropagation();
+		e.preventDefault();
+	},
+
+	// toggle open and close
+	toggle: function(e){
+		if(this.isOpen !== true) {
+			this.open(e);
+		}
+		else {
+			this.close(e);
+		}
+	},
+
+	open: function(e){
+		clearTimeout(this.closeTimeout);
+		clearTimeout(this.deferCloseTimeout);
+
+		if(e) {
+			e.stopPropagation();
+		}
+		// don't do anything if we are already open
+		if(this.isOpen) {
+			return;
+		}
+
+		this.isOpen = true;
+		this.$el.addClass("open");
+		this.trigger("dropdown:opened");
+		this.view.trigger("dropdown:opened"); // tell the inner view we've opened
+		this.setDropdownPosition();
+	},
+
+	setDropdownPosition: function() {
+		this.view.$el.css("top", this.$el.height());
+	},
+
+	close: function(e){
+		// don"t do anything if we are already closed
+		if (!this.isOpen) {
+			return;
+		}
+
+		this.isOpen = false;
+		this.$el.removeClass("open");
+		this.trigger("dropdown:closed");
+		this.view.trigger("dropdown:closed"); // tell the inner view we've closed
+	},
+
+	closeOnEsc: function(e){
+		if (e.which === 27) {
+			this.deferClose();
+		}
+	},
+
+	deferClose: function(){
+		this.deferCloseTimeout = setTimeout(this.close.bind(this), 0);
+	},
+
+	stopDeferClose: function(e){
+		clearTimeout(this.deferCloseTimeout);
+	}
+});

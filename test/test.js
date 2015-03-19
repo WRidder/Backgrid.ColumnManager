@@ -68,4 +68,17 @@ describe("Backgrid.Extension.ColumnManager", function() {
 
 		expect(instance.columns.get("col4").get("renderable")).toEqual(true);
 	});
+
+	it("can toggle the visibility of a column", function() {
+		instance.toggleColumnVisibility(columns.get("col1"));
+		expect(instance.columns.get("col1").get("renderable")).toEqual(false);
+		instance.toggleColumnVisibility(columns.get("col1"));
+		expect(instance.columns.get("col1").get("renderable")).toEqual(true);
+		instance.toggleColumnVisibility(columns.get("col1"));
+		expect(instance.columns.get("col1").get("renderable")).toEqual(false);
+	});
+
+	it("can return the column collection", function() {
+		expect(instance.getColumnCollection()).toEqual(columns);
+	});
 });

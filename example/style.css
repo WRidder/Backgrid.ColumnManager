@@ -1,0 +1,43 @@
+#control {
+    margin: 0 0 10px 0;
+}
+
+div.columnmanager-visibilitycontrol {
+    margin: 0 auto;
+    position: relative;
+}
+
+div.columnmanager-dropdown-container {
+    cursor: default;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background: #fff;
+    border: solid 1px #bbb;
+    -webkit-box-shadow: #999999 0 1px 3px;
+    -moz-box-shadow: #999999 0 1px 3px;
+    box-shadow: #999999 0 1px 3px;
+    width: 200px;
+    display: none !important;
+    min-height: 20px;
+    max-height: 400px;
+    font-size: 14px;
+    line-height: 1.1em;
+    font-weight: normal;
+    text-align: left;
+    color: #444;
+    text-transform: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    pointer-events: none;
+}
+
+div.columnmanager-dropdown-container.open {
+    display: block !important;
+    pointer-events: auto;
+}
