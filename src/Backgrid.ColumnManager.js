@@ -168,7 +168,7 @@ var DropDownItemView = Backbone.View.extend({
 		this.$el.empty();
 
 		this.$el.append(this.template({
-			name: this.column.get("name")
+			label: this.column.get("label")
 		}));
 
 		if (this.column.get("renderable")) {
@@ -328,7 +328,7 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 
 		// Item view
 		DropdownItemView: DropDownItemView,
-		dropdownItemTemplate: _.template("<span class='indicator'></span><span><%= name %></span>")
+		dropdownItemTemplate: _.template("<span class='indicator'></span><span class='column-label'><%= label %></span>")
 	},
 
 	/**
@@ -526,7 +526,6 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 	stopDeferClose: function(e){
 		clearTimeout(this.deferCloseTimeout);
 	},
-
 
 	/**
 	 * @method setDropdownPosition

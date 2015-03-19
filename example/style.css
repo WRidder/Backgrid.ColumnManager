@@ -57,8 +57,15 @@ div.columnmanager-dropdown-container.open {
     width: 20px;
     display: inline-block;
 }
-
 .columnmanager-dropdown-container > li.visible > span.indicator::before {
     content: "✓";
     color: blue;
 }
+
+.columnmanager-dropdown-container > li > span.column-label {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    width: 150px;
+ }
