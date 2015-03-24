@@ -8,6 +8,40 @@ div.columnmanager-visibilitycontrol {
     width: 50px;
 }
 
+div.columnmanager-visibilitycontrol > button.dropdown-button {
+    background-image: -moz-linear-gradient(top, #ffffff, #dbdbdb);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+    color-stop(0, #ffffff),color-stop(1, #dbdbdb));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#dbdbdb');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#dbdbdb')";
+    border: 1px solid #fff;
+    -moz-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    text-shadow: #fff 0 1px 0;
+    color: #597390;
+    font-weight: bold;
+}
+
+div.columnmanager-visibilitycontrol > button.dropdown-button:hover {
+    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+    color-stop(0, #ffffff),color-stop(1, #eeeeee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eeeeee');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eeeeee')";
+    color: #000;
+}
+
+div.columnmanager-visibilitycontrol > button.dropdown-button:active {
+    background-image: -moz-linear-gradient(top, #dbdbdb, #ffffff);
+    background-image: -webkit-gradient(linear,left top,left bottom,
+    color-stop(0, #dbdbdb),color-stop(1, #ffffff));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dbdbdb', EndColorStr='#ffffff');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#dbdbdb', EndColorStr='#ffffff')";
+    text-shadow: 0px -1px 0 rgba(255, 255, 255, 0.5);
+}
+
 div.columnmanager-dropdown-container {
     cursor: default;
     position: absolute;
@@ -74,3 +108,7 @@ div.columnmanager-dropdown-container.open {
     display: inline-block;
     width: 150px;
  }
+
+th.columnVisibility {
+    overflow: visible;
+}
