@@ -3,6 +3,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "Backgrid.Extension.ColumnManager ColumnManager",
         "Backgrid.Extension.ColumnManagerVisibilityControl",
+        "Backgrid.Extension.ColumnVisibilityHeaderCell",
         "DropDownItemView",
         "DropDownView"
     ],
