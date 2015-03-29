@@ -1,26 +1,26 @@
 {
-  "name": "Backbone.ColumnManager",
+  "name": "backgrid.columnmanager",
   "version": "0.1.0",
   "description": "A backgrid column manager. Adds the ability to show/hide columns.",
-  "main": "lib/Backbone.ColumnManager.js",
+  "main": "lib/Backgrid.ColumnManager.js",
   "scripts": {
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/WRidder/Backbone.ColumnManager.git"
+    "url": "https://github.com/WRidder/Backgrid.ColumnManager.git"
   },
   "keywords": [
-    "Backbone.ColumnManager",
+    "Backgrid.ColumnManager",
     "Backbone"
   ],
   "author": "Wilbert van de Ridder",
   "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/WRidder/Backbone.ColumnManager/issues"
+    "url": "https://github.com/WRidder/Backgrid.ColumnManager/issues"
   },
-  "homepage": "https://github.com/WRidder/Backbone.ColumnManager",
+  "homepage": "https://github.com/WRidder/Backgrid.ColumnManager",
   "dependencies": {
     "backbone": "^1.1.2",
     "gulp-eslint": "^0.7.0"
@@ -50,5 +50,5 @@
     "underscore": "^1.8.2",
     "webpack": "^1.6.0"
   },
-  "private": true
+  "private": false
 }
