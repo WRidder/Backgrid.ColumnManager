@@ -4,7 +4,7 @@ Manages the backgrid column collection. Adds the ability to toggle column visibi
 [Online demo](http://wridder.github.io/Backgrid.ColumnManager/)
 
 ## Example usage
-```
+```javascript
 // Create column collection
 var columns = new Backgrid.Columns([...]);
 
