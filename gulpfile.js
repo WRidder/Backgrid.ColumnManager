@@ -54,8 +54,10 @@ gulp.task("bundle", function (cb) {
 });
 
 // Move lib to example
-gulp.task("move-library", function() {
-	return gulp.src("lib/*.js").pipe(gulp.dest("example/js"));
+gulp.task("move-library", function(cb) {
+	gulp.src("lib/*.js").pipe(gulp.dest("example/js"));
+	gulp.src("lib/*.css").pipe(gulp.dest("example"));
+	cb();
 });
 
 // Clean task
