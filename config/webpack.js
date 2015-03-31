@@ -24,6 +24,7 @@ module.exports = function(release) {
     },
 		externals: {
 			// require("backbone") is external and available on the global var Backbone
+			"jquery": "jQuery",
 			"backbone": "Backbone",
 			"underscore": "_",
 			"backgrid": "Backgrid"
@@ -43,7 +44,7 @@ module.exports = function(release) {
     ] : [],
 
     resolve: {
-      extensions: ["",".js"],
+      extensions: ["", ".js"],
       modulesDirectories: ["node_modules"]
     }
   };

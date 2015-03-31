@@ -8,6 +8,7 @@
 
 // Dependencies
 var _ = require("underscore");
+var $ = require("jquery");
 var Backbone = require("backbone");
 var Backgrid = require("backgrid");
 
@@ -50,12 +51,24 @@ Backgrid.Extension.ColumnManager = function(columns, options){
  * @method setInitialColumnVisibility
  */
 Backgrid.Extension.ColumnManager.prototype.setInitialColumnVisibility = function() {
+	var self = this;
 	// Loop columns and set renderable property according to settings
-	var initialColumnsVisible = this.options.initialColumnsVisible;
+	var initialColumnsVisible = self.options.initialColumnsVisible;
 
-	if (this.columns instanceof Backgrid.Columns && initialColumnsVisible) {
-		this.columns.each(function(col, index) {
-			col.set("renderable", index < initialColumnsVisible || col.get("alwaysVisible"));
+	if (self.columns instanceof Backgrid.Columns && initialColumnsVisible) {
+		self.columns.each(function(col, index) {
+			col.set("renderable", (col.get("alwaysVisible")) ? true : index < initialColumnsVisible);
+
+			// Look for header cell
+			if (col.get("headerCell") === Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell) {
+				col.set("headerCell", col.get("headerCell").extend({
+					columnManager: self
+				}));
+			}
+
+			if (col.get("headerCell") instanceof Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell) {
+				col.get("headerCell").columnManager = self;
+			}
 		});
 	}
 };
@@ -292,13 +305,17 @@ var DropDownView = Backbone.View.extend({
 		var offset;
 		if (align === "left") {
 			// Align right by default
-			offset = $button.position().left + $button.outerWidth() - this.$el.outerWidth();
+			offset = $button.offset().left + $button.outerWidth() - this.$el.outerWidth();
 			this.$el.css("left", offset + "px");
 		}
 		else {
-			offset = $button.position().left;
+			offset = $button.offset().left;
 			this.$el.css("left", offset + "px");
 		}
+
+		// Height position
+		var offsetHeight = $button.offset().top + $button.outerHeight();
+		this.$el.css("top", offsetHeight + "px");
 	},
 
 	/**
@@ -317,7 +334,7 @@ var DropDownView = Backbone.View.extend({
  *
  * @class Backgrid.Extension.ColumnManagerVisibilityControl
  * @extends Backbone.View
-*/
+ */
 Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 	/**
 	 * @property tagName
@@ -450,7 +467,7 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 
 		// Render inner view
 		this.view.render(); // tell the inner view to render itself
-		this.$el.append(this.view.el);
+		$(document.body).append(this.view.el);
 		return this;
 	},
 
@@ -506,9 +523,6 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 
 		// Notify child view
 		this.view.trigger("dropdown:opened");
-
-		// Set position of child view
-		this.setDropdownPosition();
 	},
 
 	/**
@@ -558,14 +572,6 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 	 */
 	stopDeferClose: function(e){
 		clearTimeout(this.deferCloseTimeout);
-	},
-
-	/**
-	 * @method setDropdownPosition
-	 * @private
-	 */
-	setDropdownPosition: function() {
-		this.view.$el.css("top", this.$el.height());
 	}
 });
 
@@ -581,14 +587,14 @@ Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell = Backgrid.HeaderCel
 		Backgrid.HeaderCell.prototype.initialize.apply(this, arguments);
 
 		// Add class
-		this.$el.addClass("columnVisibility");
+		this.$el.addClass(this.column.get("name"));
 	},
 	render: function() {
 		this.$el.empty();
 
 		// Add control
 		var colVisibilityControl = new Backgrid.Extension.ColumnManagerVisibilityControl({
-			columnManager: this.column.collection.columnManager
+			columnManager: this.columnManager
 		});
 
 		// Add to header
