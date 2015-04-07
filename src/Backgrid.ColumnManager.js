@@ -510,8 +510,15 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
 		clearTimeout(this.deferCloseTimeout);
 
 		if(e) {
-			e.stopPropagation();
+			if (e.stopPropagation) {
+				e.stopPropagation();
+			}
+			if (e.preventDefault) {
+				e.preventDefault();
+			}
+			e.cancelBubble = true;
 		}
+
 		// Don't do anything if already open
 		if(this.isOpen) {
 			return;
