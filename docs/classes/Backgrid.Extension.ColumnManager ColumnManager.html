@@ -142,6 +142,12 @@
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code class="optional">[state]</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -237,7 +243,138 @@
                                 
                             </li>
                             
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[trackSize]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[trackOrder]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[trackVisibility]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[stateChecking]</code>
+                                    <span class="type">String</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>can be &quot;strict&quot; or &quot;loose&quot;.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[saveState]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[saveStateKey]</code>
+                                    <span class="type">String</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Storage key. Must be unique for location. Can be left out if this plugin is only used in one place.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[saveStateLocation]</code>
+                                    <span class="type">String</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Can be &quot;localStorage&quot; (default) or &quot;sessionStorage&quot; (be aware, session stored values are lost when window is closed)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[loadStateOnInit]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    
+                                </div>
+
+                                
+                            </li>
+                            
                         </ul>
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[state]</code>
+                        <span class="type">Array</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
                     
                 </li>
             
@@ -275,6 +412,20 @@
 
                     <ul class="index-list methods">
                         
+                            <li class="index-item method private">
+                                <a href="#method_applyStateToColumns">applyStateToColumns</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_checkStateValidity">checkStateValidity</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method">
                                 <a href="#method_getColumn">getColumn</a>
 
@@ -290,7 +441,49 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_getState">getState</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getStateFromColumn">getStateFromColumn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_getStorage">getStorage</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_getStorageKey">getStorageKey</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_hidecolumn">hidecolumn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_loadState">loadState</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_saveState">saveState</a>
 
                                 
                                 
@@ -304,7 +497,21 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_setState">setState</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_showColumn">showColumn</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_stateUpdateHandler">stateUpdateHandler</a>
 
                                 
                                 
@@ -331,6 +538,132 @@
         
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_applyStateToColumns" class="method item private">
+    <h3 class="name"><code>applyStateToColumns</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l398"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:398</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_checkStateValidity" class="method item">
+    <h3 class="name"><code>checkStateValidity</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l239"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:239</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
 
                 
                     <div id="method_getColumn" class="method item">
@@ -379,7 +712,7 @@
             
         
         
-        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l76"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:76</code></a>
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l119"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:119</code></a>
         
         </p>
 
@@ -474,7 +807,7 @@ Returns false if no column is found.</p>
             
         
         
-        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l139"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:139</code></a>
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l182"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:182</code></a>
         
         </p>
 
@@ -499,6 +832,290 @@ Returns false if no column is found.</p>
                 
                     
                         <span class="type">Backgrid.Columns</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getState" class="method item">
+    <h3 class="name"><code>getState</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l231"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:231</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getStateFromColumn" class="method item">
+    <h3 class="name"><code>getStateFromColumn</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l372"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:372</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getStorage" class="method item private">
+    <h3 class="name"><code>getStorage</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean | Storage</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l337"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:337</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean | Storage</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getStorageKey" class="method item private">
+    <h3 class="name"><code>getStorageKey</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l353"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:353</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
                     
                 
             </div>
@@ -551,7 +1168,7 @@ Returns false if no column is found.</p>
             
         
         
-        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l92"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:92</code></a>
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l135"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:135</code></a>
         
         </p>
 
@@ -597,6 +1214,146 @@ Returns false if no column is found.</p>
 </div>
 
                 
+                    <div id="method_loadState" class="method item">
+    <h3 class="name"><code>loadState</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l308"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:308</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_saveState" class="method item">
+    <h3 class="name"><code>saveState</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l323"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:323</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_setInitialColumnVisibility" class="method item">
     <h3 class="name"><code>setInitialColumnVisibility</code></h3>
 
@@ -629,7 +1386,7 @@ Returns false if no column is found.</p>
             
         
         
-        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l48"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:48</code></a>
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l90"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:90</code></a>
         
         </p>
 
@@ -646,6 +1403,130 @@ Returns false if no column is found.</p>
 
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_setState" class="method item">
+    <h3 class="name"><code>setState</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>state</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>applyState</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l192"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:192</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">state</code>
+                        <span class="type">Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">applyState</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -694,7 +1575,7 @@ Returns false if no column is found.</p>
             
         
         
-        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l106"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:106</code></a>
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l149"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:149</code></a>
         
         </p>
 
@@ -734,6 +1615,78 @@ Returns false if no column is found.</p>
         </div>
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_stateUpdateHandler" class="method item private">
+    <h3 class="name"><code>stateUpdateHandler</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l362"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:362</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Boolean</span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -782,7 +1735,7 @@ Returns false if no column is found.</p>
             
         
         
-        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l120"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:120</code></a>
+        <a href="../files/D:_Github_backgrid-columnmanager_src_Backgrid.ColumnManager.js.html#l163"><code>D:\Github\backgrid-columnmanager\src\Backgrid.ColumnManager.js:163</code></a>
         
         </p>
 
