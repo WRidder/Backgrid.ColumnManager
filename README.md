@@ -1,5 +1,5 @@
 # Backgrid.ColumnManager
-Manages the backgrid column collection. Adds the ability to toggle column visibility (initially and on the fly).  
+Manages the backgrid column collection. Adds the ability to toggle column visibility (initially and on the fly) and is able to track, save and load state (width, order and visibility).
 [Online demo](https://wridder.github.io/backgrid-demo/)
 
 ## Example usage
@@ -11,7 +11,11 @@ var territories = new Backbone.Collection([...]);
 
 // Initialize column manager
 var colManager = new Backgrid.Extension.ColumnManager(columns, {
-	initialColumnsVisible: 4
+	initialColumnsVisible: 4,
+
+	// State settings
+	saveState: true,
+	loadStateOnInit: true
 });
 
 // Add control
@@ -29,6 +33,14 @@ var grid = new Backgrid.Grid({
 
 // Render the grid
 $("#grid").append(grid.render().el);
+
+// Listen to state changes
+colManager.on("state-changed", function (state) {
+	console.log("state changed: ", state);
+});
+colManager.on("state-saved", function () {
+	console.log("state saved!");
+});
 ```
 
 ## Authors
