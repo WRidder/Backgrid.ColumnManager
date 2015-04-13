@@ -53,13 +53,6 @@ gulp.task("bundle", function (cb) {
 	bundler.run(bundle);
 });
 
-// Move lib to example
-gulp.task("move-library", function(cb) {
-	gulp.src("lib/*.js").pipe(gulp.dest("example/js"));
-	gulp.src("lib/*.css").pipe(gulp.dest("example"));
-	cb();
-});
-
 // Clean task
 gulp.task("build-clean", function() {
 	return gulp.src(DEST).pipe(clean());
@@ -67,7 +60,7 @@ gulp.task("build-clean", function() {
 
 // Build the app from source code
 gulp.task("build", function(cb) {
-	runSequence("build-clean", "lint", "bundle", "grunt-test", "move-library", "bundle-release", "docs", cb);
+	runSequence("build-clean", "lint", "bundle", "grunt-test", "bundle-release", "docs", cb);
 });
 
 // Watcher

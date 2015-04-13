@@ -43,10 +43,10 @@ Backgrid.Extension.ColumnManager = function (columns, options, state) {
     trackOrder: true,
     trackVisibility: true,
     stateChecking: "strict",
-    saveState: true,
+    saveState: false,
     saveStateKey: "",
     saveStateLocation: "localStorage",
-    loadStateOnInit: true
+    loadStateOnInit: false
   };
   this.options = _.extend({}, defaults, options);
   this.state = [];
@@ -56,8 +56,9 @@ Backgrid.Extension.ColumnManager = function (columns, options, state) {
     // Save columns
     this.columns = columns;
 
-    // Add columnManager to columns instance
+    // Add columnManager to columns (instance)
     columns.columnManager = this;
+    this.addManagerToColumns();
 
     // Set state if provided
     var storedState = (this.options.loadStateOnInit) ? this.loadState() : false;
@@ -102,22 +103,33 @@ Backgrid.Extension.ColumnManager.prototype.setInitialColumnVisibility = function
   // Loop columns and set renderable property according to settings
   var initialColumnsVisible = self.options.initialColumnsVisible;
 
-  if (self.columns instanceof Backgrid.Columns && initialColumnsVisible) {
+  if (initialColumnsVisible) {
     self.columns.each(function (col, index) {
       col.set("renderable", (col.get("alwaysVisible")) ? true : index < initialColumnsVisible);
-
-      // Look for header cell
-      if (col.get("headerCell") === Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell) {
-        col.set("headerCell", col.get("headerCell").extend({
-          columnManager: self
-        }));
-      }
-
-      if (col.get("headerCell") instanceof Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell) {
-        col.get("headerCell").columnManager = self;
-      }
     });
   }
+};
+
+/**
+ * Loops over all columns and adds the columnManager instance to VisibilityHeaderCell columns.
+ *
+ * @method addManagerToColumns
+ */
+Backgrid.Extension.ColumnManager.prototype.addManagerToColumns = function () {
+  var self = this;
+
+  self.columns.each(function (col) {
+    // Look for header cell
+    if (col.get("headerCell") === Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell) {
+      col.set("headerCell", col.get("headerCell").extend({
+        columnManager: self
+      }));
+    }
+
+    if (col.get("headerCell") instanceof Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell) {
+      col.get("headerCell").columnManager = self;
+    }
+  });
 };
 
 /**
@@ -435,6 +447,7 @@ Backgrid.Extension.ColumnManager.prototype.applyStateToColumns = function () {
   });
 
   if (ordered) {
+    self.columns.sort();
     self.columns.trigger("ordered");
   }
 };

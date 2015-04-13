@@ -104,13 +104,35 @@ describe("Backgrid.Extension.ColumnManager - Visibility management", function ()
 });
 
 describe("Backgrid.Extension.ColumnManager - State management", function () {
+  var OrderableColumns = Backgrid.Columns.extend({
+    sortKey: "displayOrder",
+    comparator: function (item) {
+      return item.get(this.sortKey) || 1e6;
+    },
+    setPositions: function () {
+      _.each(this.models, function (model, index) {
+        // If a displayOrder is defined already, do not touch
+        model.set("displayOrder", model.get("displayOrder") || index + 1, {silent: true});
+      });
+      return this;
+    }
+  });
+
+  var nameCompare = function(a,b) {
+    if (a.name < b.name)
+      return -1;
+    if (a.name > b.name)
+      return 1;
+    return 0;
+  };
+
   var columns;
   var options;
   var instance;
   var evtHandlerSpy;
 
   beforeEach(function () {
-    columns = new Backgrid.Columns([
+    var columnsDefinition = ([
       {
         id: "col1",
         name: "col1",
@@ -142,6 +164,9 @@ describe("Backgrid.Extension.ColumnManager - State management", function () {
         displayOrder: 5
       }
     ]);
+
+    columns = new OrderableColumns(columnsDefinition);
+    columns.setPositions().sort();
 
     options = {
       initialColumnsVisible: null,
@@ -576,7 +601,7 @@ describe("Backgrid.Extension.ColumnManager - State management", function () {
     expect(evtResizeCount).toEqual(4);
 
     // Verify values
-    var columnJson = instance.columns.toJSON();
+    var columnJson = instance.columns.toJSON().sort(nameCompare);
     // 0
     expect(columnJson[0].name).toEqual("col1");
     expect(columnJson[0].width).toEqual(300);
@@ -607,7 +632,7 @@ describe("Backgrid.Extension.ColumnManager - State management", function () {
   });
 
   it("can initialize with a state", function() {
-    var cols = new Backgrid.Columns([
+    var cols = new OrderableColumns([
       {
         id: "col1",
         name: "col1",
@@ -704,7 +729,8 @@ describe("Backgrid.Extension.ColumnManager - State management", function () {
     expect(evtResizeCount).toEqual(4);
 
     // Verify values
-    var columnJson = localInstance.columns.toJSON();
+    var columnJson = localInstance.columns.toJSON().sort(nameCompare);
+
     // 0
     expect(columnJson[0].name).toEqual("col1");
     expect(columnJson[0].width).toEqual(300);
