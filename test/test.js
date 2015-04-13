@@ -7,23 +7,41 @@ describe("Backgrid.Extension.ColumnManager - Visibility management", function ()
 
   beforeEach(function () {
     columns = new Backgrid.Columns([{
-      id: "col1"
-    },
-      {
-        id: "col2"
+        id: "col1",
+        name: "col1"
       },
       {
-        id: "col3"
+        id: "col2",
+        name: "col2"
       },
       {
-        id: "col4"
+        id: "col3",
+        name: "col3"
       },
       {
-        id: "col5"
+        id: "col4",
+        name: "col4"
+      },
+      {
+        id: "col5",
+        name: "col5"
       }]);
 
     options = {
       initialColumnsVisible: 3
+    };
+
+    // Stub storage functionality
+    Backgrid.Extension.ColumnManager.prototype.getStorage = function() {
+      var dataStore = {};
+      return {
+        setItem: function(key, data) {
+          dataStore[key] = data.toString();
+        },
+        getItem: function(key) {
+          return dataStore[key] || null;
+        }
+      };
     };
 
     instance = new Backgrid.Extension.ColumnManager(columns, options);
@@ -144,7 +162,7 @@ describe("Backgrid.Extension.ColumnManager - State management", function () {
           dataStore[key] = data.toString();
         },
         getItem: function(key) {
-          return dataStore[key];
+          return dataStore[key] || null;
         }
       };
     };
@@ -714,5 +732,50 @@ describe("Backgrid.Extension.ColumnManager - State management", function () {
     expect(columnJson[4].width).toEqual("*");
     expect(columnJson[4].displayOrder).toEqual(4);
     expect(columnJson[4].renderable).toEqual(true);
+  });
+
+  // storage functionality
+  it("loads state from storage if available", function () {
+    // Set storage to actual local storage
+    Backgrid.Extension.ColumnManager.prototype.getStorage = function() {
+      return localStorage;
+    };
+
+    // Set item in storage
+    var storedState = [
+      {
+        name: "col1",
+        width: 300,
+        displayOrder: 3
+      },
+      {
+        name: "col2",
+        width: 100,
+        displayOrder: 1
+      },
+      {
+        name: "col3",
+        width: 200,
+        displayOrder: 2
+      },
+      {
+        name: "col4",
+        width: 500,
+        displayOrder: 4
+      },
+      {
+        name: "col5",
+        width: "*",
+        displayOrder: 5
+      }
+    ];
+    localStorage.setItem("backgrid-colmgr", JSON.stringify(storedState));
+
+    var localInstance = new Backgrid.Extension.ColumnManager(columns, options);
+    expect(localInstance.getState()[0]).toEqual(jasmine.objectContaining(storedState[0]));
+    expect(localInstance.getState()[4]).toEqual(jasmine.objectContaining(storedState[4]));
+
+    // Clear local storage
+    localStorage.clear();
   });
 });

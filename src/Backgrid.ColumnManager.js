@@ -60,8 +60,12 @@ Backgrid.Extension.ColumnManager = function (columns, options, state) {
     columns.columnManager = this;
 
     // Set state if provided
+    var storedState = (this.options.loadStateOnInit) ? this.loadState() : false;
     if (state && this.checkStateValidity(state)) {
       this.setState(state, true);
+    }
+    else if (storedState) {
+      this.setState(storedState, true);
     }
     else {
       // If no initial state is provided, adhere to initial column visibility settings
@@ -243,7 +247,7 @@ Backgrid.Extension.ColumnManager.prototype.getState = function () {
  */
 Backgrid.Extension.ColumnManager.prototype.checkStateValidity = function (state) {
   // Has to be array
-  if (!_.isArray(state) && !_.isEmpty(state)) {
+  if (!_.isArray(state) && _.isEmpty(state)) {
     return false;
   }
 
@@ -305,6 +309,7 @@ Backgrid.Extension.ColumnManager.prototype.checkStateValidity = function (state)
   }
 };
 
+
 /**
  *
  * @method loadState
@@ -313,9 +318,8 @@ Backgrid.Extension.ColumnManager.prototype.checkStateValidity = function (state)
 Backgrid.Extension.ColumnManager.prototype.loadState = function () {
   // Get state from storage
   var state = JSON.parse(this.getStorage().getItem(this.getStorageKey()));
-
   if (this.checkStateValidity(state)) {
-    return this.setState(state);
+    return state;
   }
   return false;
 };
@@ -323,10 +327,11 @@ Backgrid.Extension.ColumnManager.prototype.loadState = function () {
 /**
  *
  * @method saveState
+ * @param {boolean} [force] Override save settings.
  * @return {boolean}
  */
-Backgrid.Extension.ColumnManager.prototype.saveState = function () {
-  if (this.options.saveState) {
+Backgrid.Extension.ColumnManager.prototype.saveState = function (force) {
+  if (this.options.saveState || force) {
     this.getStorage().setItem(this.getStorageKey(), JSON.stringify(this.state));
     this.trigger("state-saved");
     return true;
