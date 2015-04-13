@@ -1,5 +1,4 @@
 # Backgrid.ColumnManager
-[![Build Status](https://travis-ci.org/WRidder/Backgrid.ColumnManager.svg?branch=master)](https://travis-ci.org/WRidder/Backgrid.ColumnManager)  
 Manages the backgrid column collection. Adds the ability to toggle column visibility (initially and on the fly).  
 [Online demo](https://wridder.github.io/backgrid-demo/)
 
