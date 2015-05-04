@@ -889,6 +889,28 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
    */
   stopDeferClose: function (e) {
     clearTimeout(this.deferCloseTimeout);
+  },
+
+  /**
+   * Clean up this control
+   *
+   * @method remove
+   * @chainable
+   */
+  remove: function () {
+    // Remove event listeners
+    document.body.removeEventListener("click", this.deferClose);
+    this.el.removeEventListener("click", this.stopDeferClose);
+    if (this.options.closeOnEsc) {
+      document.body.removeEventListener("keyup", this.closeOnEsc);
+    }
+    this.el.removeEventListener("click", this.toggle);
+
+    // Remove DOM element
+    $(this.view.el).remove();
+
+    // Invoke original backbone methods
+    return Backbone.View.prototype.remove.apply(this, arguments);
   }
 });
 
@@ -910,7 +932,7 @@ Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell = Backgrid.HeaderCel
     this.$el.empty();
 
     // Add control
-    var colVisibilityControl = new Backgrid.Extension.ColumnManagerVisibilityControl({
+    var colVisibilityControl = this.colVisibilityControl = new Backgrid.Extension.ColumnManagerVisibilityControl({
       columnManager: this.columnManager
     });
 
@@ -919,5 +941,19 @@ Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell = Backgrid.HeaderCel
 
     this.delegateEvents();
     return this;
+  },
+
+  /**
+   * Clean up this cell.
+   *
+   * @method remove
+   * @chainable
+   */
+  remove: function () {
+    // Remove UI control
+    this.colVisibilityControl.remove();
+
+    // Invoke super
+    return Backbone.HeaderCell.prototype.remove.apply(this, arguments);
   }
 });
