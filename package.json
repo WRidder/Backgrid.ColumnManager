@@ -1,6 +1,6 @@
 {
   "name": "backgrid-columnmanager",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A backgrid column manager. Adds the ability to show/hide columns.",
   "main": "lib/Backgrid.ColumnManager.js",
   "scripts": {

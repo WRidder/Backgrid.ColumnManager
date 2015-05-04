@@ -954,6 +954,7 @@ Backgrid.Extension.ColumnManager.ColumnVisibilityHeaderCell = Backgrid.HeaderCel
     this.colVisibilityControl.remove();
 
     // Invoke super
-    return Backbone.HeaderCell.prototype.remove.apply(this, arguments);
+    /*eslint no-underscore-dangle:0*/
+    return Backgrid.HeaderCell.__super__.remove.apply(this, arguments);
   }
 });
