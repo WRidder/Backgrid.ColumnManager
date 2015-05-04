@@ -556,7 +556,7 @@ var DropDownView = Backbone.View.extend({
     this.options = opts;
     this.columnManager = opts.columnManager;
     this.ItemView = (opts.DropdownItemView instanceof Backbone.View) ? opts.DropdownItemView : DropDownItemView;
-    this.button = opts.button;
+    this.$dropdownButton = opts.$dropdownButton;
 
     this.on("dropdown:opened", this.open, this);
     this.on("dropdown:closed", this.close, this);
@@ -594,7 +594,7 @@ var DropDownView = Backbone.View.extend({
     this.$el.addClass("open");
 
     // Get button
-    var $button = this.$el.parent().find(".dropdown-button").first();
+    var $button = this.$dropdownButton;
 
     // Align
     var align;
@@ -749,11 +749,15 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
       this.$el.width(this.options.width + "px");
     }
 
+    // Create button element
+    this.$dropdownButton = $(this.options.buttonTemplate());
+
     var viewOptions = {
       columnManager: this.columnManager,
       DropdownItemView: this.options.DropdownItemView,
       dropdownItemTemplate: this.options.dropdownItemTemplate,
-      align: this.options.dropdownAlign
+      align: this.options.dropdownAlign,
+      $dropdownButton: this.$dropdownButton
     };
 
     // Check if a different childView has been provided, if not, use default dropdown view
