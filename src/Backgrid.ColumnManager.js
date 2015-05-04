@@ -773,7 +773,7 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
     this.$el.empty();
 
     // Render button
-    this.$el.append(this.options.buttonTemplate());
+    this.$el.append(this.$dropdownButton);
 
     // Render inner view
     this.view.render(); // tell the inner view to render itself
