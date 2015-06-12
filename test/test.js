@@ -1,5 +1,10 @@
 /*global Backgrid */
 "use strict";
+
+if (window.wallabyEnv) {
+  require('../src/Backgrid.ColumnManager');
+}
+
 describe("Backgrid.Extension.ColumnManager - Visibility management", function () {
   var columns;
   var options;
