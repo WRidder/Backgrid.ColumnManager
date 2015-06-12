@@ -6,6 +6,11 @@
  *
  * @module Backgrid.ColumnManager
  */
+// Dependencies
+var _ = require("underscore");
+var $ = require("jquery");
+var Backbone = require("backbone");
+var Backgrid = require("backgrid");
 
 /**
  * Manages visibility of columns.

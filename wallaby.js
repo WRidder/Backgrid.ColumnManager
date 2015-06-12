@@ -1,6 +1,6 @@
 var wallabyWebpack = require('wallaby-webpack');
 var webpackConfig = require('./config/webpack.wallaby');
-var webpackPostprocessor = wallabyWebpack(webpackConfig);
+var webpackPostprocessor = wallabyWebpack(webpackConfig());
 
 module.exports = function () {
     return {
@@ -22,7 +22,8 @@ module.exports = function () {
                 instrument: false
             },
             {
-                pattern: "src/*.js"
+                pattern: "src/*.js",
+                load: false
             }
         ],
 
