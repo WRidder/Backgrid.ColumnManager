@@ -1,4 +1,3 @@
-/*global _ $ Backbone Backgrid */
 "use strict";
 
 /**
