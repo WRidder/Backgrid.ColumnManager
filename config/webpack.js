@@ -22,13 +22,13 @@ module.exports = function(release) {
       library: "Backgrid.Extension.ColumnManager",
       libraryTarget: "umd"
     },
-		externals: {
-			// require("backbone") is external and available on the global var Backbone
-			"jquery": "jQuery",
-			"backbone": "Backbone",
-			"underscore": "_",
-			"backgrid": "Backgrid"
-		},
+    externals: {
+        // require("backbone") is external and available on the global var Backbone
+        "jquery": "jQuery",
+        "backbone": "Backbone",
+        "underscore": "_",
+        "backgrid": "Backgrid"
+    },
 
     stats: {
       colors: true,

@@ -48,6 +48,7 @@
     "minimist": "^1.1.0",
     "run-sequence": "^1.0.2",
     "underscore": "^1.8.2",
+    "wallaby-webpack": "0.0.5",
     "webpack": "^1.6.0"
   },
   "private": false

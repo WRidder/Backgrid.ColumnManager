@@ -1,4 +1,4 @@
-/*global jasmine, describe, beforeEach, it, expect, spyOn, Backgrid */
+/*global Backgrid */
 "use strict";
 describe("Backgrid.Extension.ColumnManager - Visibility management", function () {
   var columns;
