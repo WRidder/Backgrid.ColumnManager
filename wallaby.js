@@ -1,14 +1,10 @@
 var wallabyWebpack = require('wallaby-webpack');
 var webpackConfig = require('./config/webpack.wallaby');
-var webpackPostprocessor = wallabyWebpack(webpackConfig);
+var webpackPostprocessor = wallabyWebpack(webpackConfig());
 
 module.exports = function () {
     return {
         files: [
-            {
-                pattern: "src/*.js",
-                load: false
-            },
             {
                 pattern: "node_modules/jquery/dist/jquery.min.js",
                 instrument: false
@@ -24,18 +20,23 @@ module.exports = function () {
             {
                 pattern: "node_modules/backgrid/lib/backgrid.js",
                 instrument: false
+            },
+            {
+                pattern: "src/*.js",
+                load: false
             }
         ],
 
         tests: [
             {
                 pattern: 'test/*.js',
-                load: true
+                load: false
             }
         ],
-        debug: true,
+        //debug: true,
         postprocessor: webpackPostprocessor,
         bootstrap: function () {
+            // Backgrid/jquery etc are available here if a console.log is used.
             window.__moduleBundler.loadTests();
         }
     }

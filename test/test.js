@@ -1,5 +1,6 @@
 /*global Backgrid */
 "use strict";
+require('../src/Backgrid.ColumnManager');
 describe("Backgrid.Extension.ColumnManager - Visibility management", function () {
   var columns;
   var options;
