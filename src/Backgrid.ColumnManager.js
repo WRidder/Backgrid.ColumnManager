@@ -5,11 +5,13 @@
  *
  * @module Backgrid.ColumnManager
  */
+
 // Dependencies
 var _ = require("underscore");
 var $ = require("jquery");
 var Backbone = require("backbone");
 var Backgrid = require("backgrid");
+var COLUMN_MANAGER_PREFIX = "columnmanager";
 
 /**
  * Manages visibility of columns.
@@ -653,7 +655,7 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
    * @type String
    * @default "columnmanager-visibilitycontrol"
    */
-  className: "columnmanager-visibilitycontrol",
+  className: "columnmanager-visibilitycontrol",  
 
   /**
    * @property defaultEvents
@@ -799,7 +801,7 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
    * @method toggle
    * @param {object} [e]
    */
-  toggle: function (e) {
+  toggle: function (e) {    
     if (this.isOpen !== true) {
       this.open(e);
     }
@@ -852,7 +854,6 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
     if (!this.isOpen) {
       return;
     }
-
     this.isOpen = false;
     this.$el.removeClass("open");
     this.trigger("dropdown:closed");
@@ -874,12 +875,23 @@ Backgrid.Extension.ColumnManagerVisibilityControl = Backbone.View.extend({
     }
   },
 
-  /**
+  /** 
+   * Close dropdown only if control was not clicked 
+   *
    * @method deferClose
    * @private
    */
-  deferClose: function () {
-    this.deferCloseTimeout = setTimeout(this.close.bind(this), 0);
+  deferClose: function (e) {    
+    if(this.options.closeOnClick) this.deferCloseTimeout = setTimeout(this.close.bind(this), 0);
+
+    var clickedClassName = e.target.parentElement.classList.item(0);
+    var columnManagerClassPrefix = (clickedClassName) ? clickedClassName.split("-")[0] : "";    
+    var controlClicked = columnManagerClassPrefix === COLUMN_MANAGER_PREFIX;    
+    if(!controlClicked && this.isOpen === true) {
+      this.deferCloseTimeout = setTimeout(this.close.bind(this), 0);
+    } else if(this.className === clickedClassName && this.isOpen === true){
+      this.deferCloseTimeout = setTimeout(this.close.bind(this), 0);
+    }    
   },
 
   /**
